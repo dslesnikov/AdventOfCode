@@ -113,7 +113,7 @@ namespace AdventOfCode.Day22
                 result += (ulong)card * x;
                 x <<= 1;
             }
-            x = (ulong)1 << 50;
+            x = 1ul << 50;
             foreach (var card in rightDeck)
             {
                 result += (ulong)card * x;

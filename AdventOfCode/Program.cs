@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ namespace AdventOfCode
 {
     public static class Program
     {
-        private const int Day = 22;
+        private const int Day = 24;
         
         public static async Task Main(string[] args)
         {
@@ -26,8 +25,8 @@ namespace AdventOfCode
             var solution = factory.Create();
             await solution.InitializeAsync();
             var partOne = solution.PartOne();
-            var partTwo = solution.PartTwo();
             Console.WriteLine($"Part 1: {partOne}");
+            var partTwo = solution.PartTwo();
             Console.WriteLine($"Part 2: {partTwo}");
         }
 
