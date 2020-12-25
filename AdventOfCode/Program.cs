@@ -8,7 +8,7 @@ namespace AdventOfCode
 {
     public static class Program
     {
-        private const int Day = 24;
+        private const int Day = 25;
         
         public static async Task Main(string[] args)
         {

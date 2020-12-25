@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AdventOfCode.Day24
 {
@@ -11,24 +10,25 @@ namespace AdventOfCode.Day24
             var index = 0;
             while (index < line.Length)
             {
-                coordinates = line[index++] switch
+                (int X, int Y) shift = line[index++] switch
                 {
-                    'e' => (coordinates.X + 2, coordinates.Y),
-                    'w' => (coordinates.X - 2, coordinates.Y),
+                    'e' => (2, 0),
+                    'w' => (-2, 0),
                     's' => line[index++] switch
                     {
-                        'e' => (coordinates.X + 1, coordinates.Y + 1),
-                        'w' => (coordinates.X - 1, coordinates.Y + 1),
+                        'e' => (1, 1),
+                        'w' => (-1, 1),
                         _ => throw new NotSupportedException()
                     },
                     'n' => line[index++] switch
                     {
-                        'e' => (coordinates.X + 1, coordinates.Y - 1),
-                        'w' => (coordinates.X - 1, coordinates.Y - 1),
+                        'e' => (1, -1),
+                        'w' => (-1, -1),
                         _ => throw new NotSupportedException()
                     },
                     _ => throw new NotSupportedException()
                 };
+                coordinates = (coordinates.X + shift.X, coordinates.Y + shift.Y);
             }
             return new HexTile(coordinates.X, coordinates.Y);
         }
