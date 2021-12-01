@@ -1,2 +1,2 @@
-## Advent of code 2020 solutions
+## Advent of code solutions
 https://adventofcode.com/
