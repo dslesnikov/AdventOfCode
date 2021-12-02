@@ -4,12 +4,12 @@ trait Solution {
     fn solve_second_part(&self) -> Self::Output;
 }
 
-mod day1;
+mod day2;
 
 fn main() {
-    let day1 = day1::Solution::new();
-    let solution = day1.solve_first_part();
-    println!("First part: {}", solution);
-    let solution = day1.solve_second_part();
-    println!("Second part: {}", solution);
+    let solution = day2::Solution::new();
+    let first = solution.solve_first_part();
+    println!("First part: {}", first);
+    let second = solution.solve_second_part();
+    println!("Second part: {}", second);
 }
