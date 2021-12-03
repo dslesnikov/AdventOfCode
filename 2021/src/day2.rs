@@ -60,7 +60,7 @@ impl crate::Solution for Solution {
             match &command {
                 Command::Forward(value) => {
                     position += value;
-                    depth += aim * value
+                    depth += aim * value;
                 }
                 Command::Up(value) => aim -= value,
                 Command::Down(value) => aim += value,
