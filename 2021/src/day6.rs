@@ -1,15 +1,15 @@
-use std::{fs::File, io::Read};
+use create_macro_derive::CreateFromContent;
 
+use crate::parsing::FromContent;
+
+#[derive(CreateFromContent)]
 pub struct Solution {
     initial_state: Vec<i32>,
 }
 
-impl Solution {
-    pub fn new() -> Solution {
-        let mut input_file = File::open("input/6.txt").unwrap();
-        let mut raw_input = String::new();
-        input_file.read_to_string(&mut raw_input).unwrap();
-        let state = raw_input
+impl FromContent for Solution {
+    fn new(content: String) -> Self {
+        let state = content
             .trim()
             .split(',')
             .map(|token| token.parse().unwrap())
@@ -21,7 +21,7 @@ impl Solution {
 }
 
 impl crate::Solution for Solution {
-    type Output = String;
+    const DAY: i32 = 6;
 
     fn solve_first_part(&self) -> String {
         self.simulate_growth(80).to_string()

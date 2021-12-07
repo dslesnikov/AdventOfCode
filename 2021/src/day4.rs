@@ -1,34 +1,29 @@
-use std::{
-    collections::{HashMap, HashSet},
-    fs::File,
-    io::{self, BufRead},
-};
+use std::collections::{HashMap, HashSet};
+
+use create_macro_derive::CreateFromLines;
+
+use crate::parsing::FromLines;
 
 const BOARD_SIZE: i32 = 5;
 
+#[derive(CreateFromLines)]
 pub struct Solution {
     sequence: Vec<i32>,
     boards: Vec<HashMap<i32, (i32, i32)>>,
 }
 
-impl Solution {
-    pub fn new() -> Solution {
-        let input_file = File::open("input/4.txt").unwrap();
-        let mut file_lines = io::BufReader::new(input_file).lines();
-        let seqeunce: Vec<i32> = file_lines
-            .next()
-            .unwrap()
-            .unwrap()
+impl FromLines for Solution {
+    fn new(lines: Vec<String>) -> Self {
+        let seqeunce: Vec<i32> = lines[0]
             .split(',')
             .map(|num| num.parse().unwrap())
             .collect();
         let mut boards: Vec<HashMap<i32, (i32, i32)>> = Vec::new();
         let mut current_board: HashMap<i32, (i32, i32)> = HashMap::new();
-        let _ = file_lines.next().unwrap();
         let mut y = 0;
-        for line in file_lines {
+        for line in lines.iter().skip(2) {
             let mut x = 0;
-            let content = line.unwrap();
+            let content = line;
             if content.is_empty() {
                 boards.push(current_board);
                 current_board = HashMap::new();
@@ -54,7 +49,7 @@ impl Solution {
 }
 
 impl crate::Solution for Solution {
-    type Output = String;
+    const DAY: i32 = 4;
 
     fn solve_first_part(&self) -> String {
         let winners = self.play_bingo();

@@ -1,7 +1,6 @@
-use std::{
-    fs::File,
-    io::{self, BufRead},
-};
+use create_macro_derive::CreateFromLines;
+
+use crate::parsing::FromLines;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 struct Point {
@@ -14,16 +13,15 @@ struct Line {
     end: Point,
 }
 
+#[derive(CreateFromLines)]
 pub struct Solution {
     lines: Vec<Line>,
 }
 
-impl Solution {
-    pub fn new() -> Solution {
-        let input_file = File::open("input/5.txt").unwrap();
-        let file_lines = io::BufReader::new(input_file).lines();
-        let result: Vec<Line> = file_lines
-            .map(|line| line.unwrap())
+impl FromLines for Solution {
+    fn new(lines: Vec<String>) -> Self {
+        let result: Vec<Line> = lines
+            .into_iter()
             .filter(|line| !line.is_empty())
             .map(|string| {
                 let raw_points: Vec<Vec<i32>> = string
@@ -54,7 +52,7 @@ impl Solution {
 }
 
 impl crate::Solution for Solution {
-    type Output = String;
+    const DAY: i32 = 5;
 
     fn solve_first_part(&self) -> String {
         let result = self.count_overlapping_cells(|line| {

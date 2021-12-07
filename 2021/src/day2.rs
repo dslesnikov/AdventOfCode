@@ -1,7 +1,6 @@
-use std::{
-    fs::File,
-    io::{self, BufRead},
-};
+use create_macro_derive::CreateFromLines;
+
+use crate::parsing::FromLines;
 
 enum Command {
     Forward(i32),
@@ -9,21 +8,20 @@ enum Command {
     Down(i32),
 }
 
+#[derive(CreateFromLines)]
 pub struct Solution {
     input: Vec<Command>,
 }
 
-impl Solution {
-    pub fn new() -> Solution {
-        let input_file = File::open("input/2.txt").expect("Failed to read input file");
-        let file_lines = io::BufReader::new(input_file).lines();
-        let result: Vec<Command> = file_lines
-            .map(|line| line.expect("Failed to read a line"))
-            .filter(|line| !line.is_empty())
+impl FromLines for Solution {
+    fn new(lines: Vec<String>) -> Self {
+        let result: Vec<Command> = lines
+            .into_iter()
+            .filter(|string| !string.is_empty())
             .map(|string| {
                 let split: Vec<&str> = string.split(' ').collect();
                 let command = split[0];
-                let value: i32 = split[1].parse().expect("Failed to parse command value");
+                let value: i32 = split[1].parse().unwrap();
                 match command {
                     "forward" => Command::Forward(value),
                     "down" => Command::Down(value),
@@ -37,7 +35,7 @@ impl Solution {
 }
 
 impl crate::Solution for Solution {
-    type Output = String;
+    const DAY: i32 = 2;
 
     fn solve_first_part(&self) -> String {
         let mut depth = 0;

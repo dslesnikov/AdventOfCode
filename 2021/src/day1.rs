@@ -1,27 +1,25 @@
-use std::{
-    fs::File,
-    io::{self, BufRead},
-};
+use create_macro_derive::CreateFromLines;
 
+use crate::parsing::FromLines;
+
+#[derive(CreateFromLines)]
 pub struct Solution {
     input: Vec<i32>,
 }
 
-impl Solution {
-    pub fn new() -> Solution {
-        let input_file = File::open("input/1.txt").expect("Failed to read input file");
-        let file_lines = io::BufReader::new(input_file).lines();
-        let result: Vec<i32> = file_lines
-            .map(|line| line.expect("Failed to read a line"))
-            .filter(|line| !line.is_empty())
-            .map(|string| string.parse().expect("Failed to parse a number"))
+impl FromLines for Solution {
+    fn new(lines: Vec<String>) -> Self {
+        let numbers = lines
+            .into_iter()
+            .filter(|string| !string.is_empty())
+            .map(|string| string.parse().unwrap())
             .collect();
-        Solution { input: result }
+        Solution { input: numbers }
     }
 }
 
 impl crate::Solution for Solution {
-    type Output = String;
+    const DAY: i32 = 1;
 
     fn solve_first_part(&self) -> String {
         self.input
