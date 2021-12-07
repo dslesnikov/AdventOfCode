@@ -1,12 +1,8 @@
+use crate::parsing::{FromLines, InputParser};
 use std::collections::{HashMap, HashSet};
-
-use create_macro_derive::CreateFromLines;
-
-use crate::parsing::FromLines;
 
 const BOARD_SIZE: i32 = 5;
 
-#[derive(CreateFromLines)]
 pub struct Solution {
     sequence: Vec<i32>,
     boards: Vec<HashMap<i32, (i32, i32)>>,
@@ -50,6 +46,10 @@ impl FromLines for Solution {
 
 impl crate::Solution for Solution {
     const DAY: i32 = 4;
+
+    fn create() -> Self {
+        InputParser::from_lines()
+    }
 
     fn solve_first_part(&self) -> String {
         let winners = self.play_bingo();

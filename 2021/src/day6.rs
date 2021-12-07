@@ -1,8 +1,5 @@
-use create_macro_derive::CreateFromContent;
+use crate::parsing::{FromContent, InputParser};
 
-use crate::parsing::FromContent;
-
-#[derive(CreateFromContent)]
 pub struct Solution {
     initial_state: Vec<i32>,
 }
@@ -22,6 +19,10 @@ impl FromContent for Solution {
 
 impl crate::Solution for Solution {
     const DAY: i32 = 6;
+
+    fn create() -> Self {
+        InputParser::from_content()
+    }
 
     fn solve_first_part(&self) -> String {
         self.simulate_growth(80).to_string()

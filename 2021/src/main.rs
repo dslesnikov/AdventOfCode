@@ -1,8 +1,5 @@
 #![allow(dead_code)]
 
-#[allow(unused_imports)]
-use crate::parsing::{CreateFromContent, CreateFromLines};
-
 mod day1;
 mod day2;
 mod day3;
@@ -12,11 +9,10 @@ mod day6;
 mod day7;
 mod parsing;
 
-trait Solution {
+trait Solution: Sized {
     const DAY: i32;
-
+    fn create() -> Self;
     fn solve_first_part(&self) -> String;
-
     fn solve_second_part(&self) -> String {
         String::from("Not yet")
     }

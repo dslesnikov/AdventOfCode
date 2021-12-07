@@ -1,6 +1,4 @@
-use create_macro_derive::CreateFromLines;
-
-use crate::parsing::FromLines;
+use crate::parsing::{FromLines, InputParser};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 struct Point {
@@ -13,7 +11,6 @@ struct Line {
     end: Point,
 }
 
-#[derive(CreateFromLines)]
 pub struct Solution {
     lines: Vec<Line>,
 }
@@ -53,6 +50,10 @@ impl FromLines for Solution {
 
 impl crate::Solution for Solution {
     const DAY: i32 = 5;
+
+    fn create() -> Self {
+        InputParser::from_lines()
+    }
 
     fn solve_first_part(&self) -> String {
         let result = self.count_overlapping_cells(|line| {

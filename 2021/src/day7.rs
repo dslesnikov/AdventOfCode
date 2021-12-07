@@ -1,8 +1,5 @@
-use create_macro_derive::CreateFromContent;
+use crate::parsing::{FromContent, InputParser};
 
-use crate::parsing::FromContent;
-
-#[derive(CreateFromContent)]
 pub struct Solution {
     crabs: Vec<i32>,
 }
@@ -21,6 +18,10 @@ impl FromContent for Solution {
 
 impl crate::Solution for Solution {
     const DAY: i32 = 7;
+
+    fn create() -> Self {
+        InputParser::from_content()
+    }
 
     fn solve_first_part(&self) -> String {
         let length = self.crabs.len();

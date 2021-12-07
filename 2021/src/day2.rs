@@ -1,6 +1,4 @@
-use create_macro_derive::CreateFromLines;
-
-use crate::parsing::FromLines;
+use crate::parsing::{FromLines, InputParser};
 
 enum Command {
     Forward(i32),
@@ -8,7 +6,6 @@ enum Command {
     Down(i32),
 }
 
-#[derive(CreateFromLines)]
 pub struct Solution {
     input: Vec<Command>,
 }
@@ -36,6 +33,10 @@ impl FromLines for Solution {
 
 impl crate::Solution for Solution {
     const DAY: i32 = 2;
+
+    fn create() -> Self {
+        InputParser::from_lines()
+    }
 
     fn solve_first_part(&self) -> String {
         let mut depth = 0;

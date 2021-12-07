@@ -1,8 +1,5 @@
-use create_macro_derive::CreateFromLines;
+use crate::parsing::{FromLines, InputParser};
 
-use crate::parsing::FromLines;
-
-#[derive(CreateFromLines)]
 pub struct Solution {
     input: Vec<u16>,
 }
@@ -20,6 +17,10 @@ impl FromLines for Solution {
 
 impl crate::Solution for Solution {
     const DAY: i32 = 3;
+
+    fn create() -> Self {
+        InputParser::from_lines()
+    }
 
     fn solve_first_part(&self) -> String {
         let mut statistics = [0; 12];
