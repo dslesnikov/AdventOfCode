@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 mod day1;
 mod day2;
 mod day3;
@@ -7,6 +5,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 mod parsing;
 
 trait Solution: Sized {
@@ -19,7 +18,7 @@ trait Solution: Sized {
 }
 
 fn main() {
-    let solution = day7::Solution::create();
+    let solution = day8::Solution::create();
     let first = solution.solve_first_part();
     println!("First part: {}", first);
     let second = solution.solve_second_part();

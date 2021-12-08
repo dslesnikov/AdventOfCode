@@ -11,14 +11,6 @@ pub trait FromContent {
     fn new(content: String) -> Self;
 }
 
-pub trait CreateFromLines {
-    fn create() -> Self;
-}
-
-pub trait CreateFromContent {
-    fn create() -> Self;
-}
-
 pub struct InputParser;
 
 impl InputParser {
