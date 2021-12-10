@@ -73,7 +73,9 @@ impl crate::Solution for Solution {
                 let neighbours = self.get_neighbours(&current, height, width);
                 let good_neighbours: Vec<Point> = neighbours
                     .into_iter()
-                    .filter(|point| !visited.contains(point) && self[point] > current_value && self[point] != 9)
+                    .filter(|point| {
+                        !visited.contains(point) && self[point] > current_value && self[point] != 9
+                    })
                     .collect();
                 for neighbour in good_neighbours.into_iter() {
                     visited.insert(neighbour);
