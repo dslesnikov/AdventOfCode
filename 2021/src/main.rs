@@ -1,6 +1,7 @@
 mod day1;
 mod day10;
 mod day11;
+mod day12;
 mod day2;
 mod day3;
 mod day4;
@@ -21,7 +22,7 @@ trait Solution: Sized {
 }
 
 fn main() {
-    let solution = day11::Solution::create();
+    let solution = day12::Solution::create();
     let first = solution.solve_first_part();
     println!("First part: {}", first);
     let second = solution.solve_second_part();
