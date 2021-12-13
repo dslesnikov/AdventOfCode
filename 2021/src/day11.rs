@@ -1,4 +1,4 @@
-use std::{collections::{VecDeque, HashSet}};
+use std::collections::{HashSet, VecDeque};
 
 use crate::parsing::{FromLines, InputParser};
 
@@ -9,12 +9,12 @@ pub struct Solution {
 #[derive(PartialEq, Eq, Clone, Copy, Hash)]
 struct Point {
     x: usize,
-    y: usize
+    y: usize,
 }
 
 enum SimulationResult {
     TotalFlashes(i32),
-    FirstSimultaneousStep(i32)
+    FirstSimultaneousStep(i32),
 }
 
 impl FromLines for Solution {
@@ -22,7 +22,11 @@ impl FromLines for Solution {
         let field: Vec<Vec<u8>> = lines
             .into_iter()
             .filter(|string| !string.is_empty())
-            .map(|line| line.chars().map(|char| char.to_digit(10).unwrap() as u8).collect())
+            .map(|line| {
+                line.chars()
+                    .map(|char| char.to_digit(10).unwrap() as u8)
+                    .collect()
+            })
             .collect();
         Solution { field }
     }
@@ -40,7 +44,7 @@ impl crate::Solution for Solution {
         let result = self.simulate_flashes(Some(STEPS));
         match result {
             SimulationResult::FirstSimultaneousStep(_) => panic!("Did not expect this result"),
-            SimulationResult::TotalFlashes(value) => value.to_string()
+            SimulationResult::TotalFlashes(value) => value.to_string(),
         }
     }
 
@@ -48,7 +52,7 @@ impl crate::Solution for Solution {
         let result = self.simulate_flashes(None);
         match result {
             SimulationResult::FirstSimultaneousStep(value) => value.to_string(),
-            SimulationResult::TotalFlashes(_) => panic!("Did not expect this result")
+            SimulationResult::TotalFlashes(_) => panic!("Did not expect this result"),
         }
     }
 }
@@ -72,7 +76,10 @@ impl Solution {
             while flashes.len() > 0 {
                 let flash = flashes.pop_front().unwrap();
                 let neighbours = self.get_neighbours(&flash);
-                let neighbours: Vec<Point> = neighbours.into_iter().filter(|point| !flashed.contains(point)).collect();
+                let neighbours: Vec<Point> = neighbours
+                    .into_iter()
+                    .filter(|point| !flashed.contains(point))
+                    .collect();
                 for neighbour in neighbours {
                     visit(&mut field, neighbour, &mut flashes, &mut flashed);
                 }
@@ -93,13 +100,21 @@ impl Solution {
             .filter(|&pair| pair.0 != 0 || pair.1 != 0)
             .map(|pair| (pair.0 + point.x as i32, pair.1 + point.y as i32))
             .filter(|&pair| pair.0 >= 0 && pair.1 >= 0 && pair.0 < width && pair.1 < height)
-            .map(|pair| Point { x: pair.0 as usize, y: pair.1 as usize })
+            .map(|pair| Point {
+                x: pair.0 as usize,
+                y: pair.1 as usize,
+            })
             .collect();
         result
     }
 }
 
-fn visit(field: &mut Vec<Vec<u8>>, point: Point, flashes: &mut VecDeque<Point>, flashed: &mut HashSet<Point>) {
+fn visit(
+    field: &mut Vec<Vec<u8>>,
+    point: Point,
+    flashes: &mut VecDeque<Point>,
+    flashed: &mut HashSet<Point>,
+) {
     field[point.y][point.x] += 1;
     if field[point.y][point.x] > 9 {
         field[point.y][point.x] = 0;

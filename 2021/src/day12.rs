@@ -77,7 +77,13 @@ impl crate::Solution for Solution {
 }
 
 impl Solution {
-    fn traverse(&self, current: &Vertex, visited: HashSet<&str>, can_visit_twice: bool, visited_once: HashSet<&str>) -> i32 {
+    fn traverse(
+        &self,
+        current: &Vertex,
+        visited: HashSet<&str>,
+        can_visit_twice: bool,
+        visited_once: HashSet<&str>,
+    ) -> i32 {
         let neighbours = self.graph.get(current).unwrap();
         let neighbours: Vec<&Vertex> = neighbours
             .iter()
