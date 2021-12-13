@@ -98,6 +98,8 @@ impl crate::Solution for Solution {
             new_field = Self::fold(&field, fold);
             field = &new_field;
         }
+        let mut result = String::new();
+        result.push('\n');
         for row in 0..field.height {
             for col in 0..field.width {
                 let token = if field.points.contains(&Point { x: col, y: row }) {
@@ -105,11 +107,11 @@ impl crate::Solution for Solution {
                 } else {
                     '.'
                 };
-                print!("{}", token)
+                result.push(token);
             }
-            println!();
+            result.push('\n');
         }
-        "Too bad".to_string()
+        result
     }
 }
 
