@@ -56,39 +56,42 @@ impl Solution {
         let len = self.template.len();
         for index in 1..len {
             let pair = (self.template[index - 1], self.template[index]);
-            if !character_stats.contains_key(&pair.0) {
-                character_stats.insert(pair.0, 0);
-            }
-            if !character_stats.contains_key(&pair.1) {
-                character_stats.insert(pair.1, 0);
-            }
-            if !pair_stats.contains_key(&pair) {
-                pair_stats.insert(pair, 0);
-            }
-            *character_stats.get_mut(&pair.0).unwrap() += 1;
-            *pair_stats.get_mut(&pair).unwrap() += 1;
+            character_stats
+                .entry(pair.0)
+                .and_modify(|val| *val += 1)
+                .or_insert(1);
+            pair_stats
+                .entry(pair)
+                .and_modify(|val| *val += 1)
+                .or_insert(1);
         }
-        *character_stats.get_mut(&self.template[len - 1]).unwrap() += 1;
+        character_stats
+            .entry(self.template[len - 1])
+            .and_modify(|val| *val += 1)
+            .or_insert(1);
         for _ in 0..steps {
             let current_stats = pair_stats.clone();
             for pair in current_stats {
                 if self.insertions.contains_key(&pair.0) {
                     let new = self.insertions[&pair.0];
-                    if !character_stats.contains_key(&new) {
-                        character_stats.insert(new, 0);
-                    }
-                    *character_stats.get_mut(&new).unwrap() += pair.1;
+                    character_stats
+                        .entry(new)
+                        .and_modify(|val| *val += pair.1)
+                        .or_insert(pair.1);
                     let left_pair: (char, char) = (pair.0 .0, new);
                     let right_pair: (char, char) = (new, pair.0 .1);
-                    if !pair_stats.contains_key(&left_pair) {
-                        pair_stats.insert(left_pair, 0);
-                    }
-                    if !pair_stats.contains_key(&right_pair) {
-                        pair_stats.insert(right_pair, 0);
-                    }
-                    *pair_stats.get_mut(&left_pair).unwrap() += pair.1;
-                    *pair_stats.get_mut(&right_pair).unwrap() += pair.1;
-                    *pair_stats.get_mut(&pair.0).unwrap() -= pair.1;
+                    pair_stats
+                        .entry(left_pair)
+                        .and_modify(|val| *val += pair.1)
+                        .or_insert(pair.1);
+                    pair_stats
+                        .entry(right_pair)
+                        .and_modify(|val| *val += pair.1)
+                        .or_insert(pair.1);
+                    pair_stats
+                        .entry(pair.0)
+                        .and_modify(|val| *val -= pair.1)
+                        .or_insert(pair.1);
                 }
             }
         }
