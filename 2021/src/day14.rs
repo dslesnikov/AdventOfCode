@@ -88,10 +88,7 @@ impl Solution {
                         .entry(right_pair)
                         .and_modify(|val| *val += pair.1)
                         .or_insert(pair.1);
-                    pair_stats
-                        .entry(pair.0)
-                        .and_modify(|val| *val -= pair.1)
-                        .or_insert(pair.1);
+                    pair_stats.entry(pair.0).and_modify(|val| *val -= pair.1);
                 }
             }
         }
