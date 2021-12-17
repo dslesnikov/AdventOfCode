@@ -64,8 +64,8 @@ impl crate::Solution for Solution {
         for row_increase in 0..5 {
             for row_index in 0..original_height {
                 actual_field.push(Vec::new());
+                let actual_row_index = row_index + row_increase * original_height;
                 for col_increase in 0..5usize {
-                    let actual_row_index = row_index + row_increase * original_height;
                     for col_index in 0..original_width {
                         let value = self.field[row_index][col_index] as usize;
                         let mut new_value = value + row_increase + col_increase;
