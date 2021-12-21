@@ -2,17 +2,17 @@ use crate::parsing::{FromLines, InputParser};
 
 struct Image {
     data: Vec<Vec<bool>>,
-    outside_value: bool
+    outside_value: bool,
 }
 
 pub struct Solution {
     algorithm: Vec<bool>,
-    image: Image
+    image: Image,
 }
 
 impl FromLines for Solution {
     fn new(lines: Vec<String>) -> Self {
-        let algorithm = lines[0].chars().map(|ch| ch == '#' ).collect();
+        let algorithm = lines[0].chars().map(|ch| ch == '#').collect();
         let data = lines
             .iter()
             .skip(2)
@@ -22,8 +22,8 @@ impl FromLines for Solution {
             algorithm,
             image: Image {
                 data,
-                outside_value: false
-            }
+                outside_value: false,
+            },
         }
     }
 }
@@ -66,11 +66,16 @@ impl Solution {
                     self.algorithm[self.algorithm.len() - 1]
                 } else {
                     self.algorithm[0]
-                }
+                },
             };
             current_image = &new_image;
         }
-        current_image.data.iter().flatten().filter(|&&item| item).count()
+        current_image
+            .data
+            .iter()
+            .flatten()
+            .filter(|&&item| item)
+            .count()
     }
 
     fn should_be_lit(&self, image: &Image, x: i32, y: i32) -> bool {
@@ -88,17 +93,13 @@ impl Solution {
         let mut algo_index: usize = 0;
         let height = image.data.len() as i32;
         let width = image.data[0].len() as i32;
-        for (index, pair) in neighbours.iter().enumerate() {
+        for (index, pair) in neighbours.into_iter().enumerate() {
             if pair.0 < 0 || pair.1 < 0 || pair.0 >= width || pair.1 >= height {
-                if image.outside_value {
-                    algo_index |= 1 << index;
-                }
-            } else {
-                let item = image.data[pair.1 as usize][pair.0 as usize];
-                if item {
-                    algo_index |= 1 << index;
-                }
+                algo_index |= (image.outside_value as usize) << index;
+                continue;
             }
+            let item = image.data[pair.1 as usize][pair.0 as usize] as usize;
+            algo_index |= item << index;
         }
         return self.algorithm[algo_index];
     }
