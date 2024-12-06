@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day05PrintQueue;
+using AdventOfCode.Day06GuardGallivant;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
