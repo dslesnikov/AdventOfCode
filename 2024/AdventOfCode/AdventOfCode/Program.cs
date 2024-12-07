@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day06GuardGallivant;
+using AdventOfCode.Day07BridgeRepair;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
