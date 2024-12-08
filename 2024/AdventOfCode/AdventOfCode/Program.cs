@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day07BridgeRepair;
+using AdventOfCode.Day08ResonantCollinearity;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();

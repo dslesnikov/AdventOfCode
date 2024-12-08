@@ -8,38 +8,41 @@ public record Equation
 
     public bool IsSimpleSolvable()
     {
-        return IsSimpleSolvable(0, Operands[0]);
+        return IsSolvable(0, Operands[0],
+            (a, b) => a + b,
+            (a, b) => a * b);
     }
 
-    private bool IsSimpleSolvable(int index, long current)
-    {
-        if (index == Operands.Count - 1)
-        {
-            return current == Result;
-        }
-
-        var add = IsSimpleSolvable(index + 1, current + Operands[index + 1]);
-        var multiply = IsSimpleSolvable(index + 1, current * Operands[index + 1]);
-        return add || multiply;
-    }
     public bool IsComplexSolvable()
     {
-        return IsComplexSolvable(0, Operands[0]);
+        return IsSolvable(0, Operands[0],
+            (a, b) => a + b,
+            (a, b) => a * b,
+            (a, b) => a * (long)Math.Pow(10, (int)Math.Log10(b) + 1) + b);
     }
 
-    private bool IsComplexSolvable(int index, long current)
+    private bool IsSolvable(int index, long current,
+        params ReadOnlySpan<Func<long, long, long>> operations)
     {
         if (index == Operands.Count - 1)
         {
             return current == Result;
         }
 
-        var add = IsComplexSolvable(index + 1, current + Operands[index + 1]);
-        var multiply = IsComplexSolvable(index + 1, current * Operands[index + 1]);
-        var log = Math.Log10(Operands[index + 1]);
-        var concatValue = current * (long)Math.Pow(10, (int)log + 1) + Operands[index + 1];
-        var concat = IsComplexSolvable(index + 1, concatValue);
-        return add || multiply || concat;
+        if (current > Result)
+        {
+            return false;
+        }
+
+        foreach (var operation in operations)
+        {
+            var next = operation(current, Operands[index + 1]);
+            if (IsSolvable(index + 1, next, operations))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Equation Parse(ReadOnlySpan<char> s)
