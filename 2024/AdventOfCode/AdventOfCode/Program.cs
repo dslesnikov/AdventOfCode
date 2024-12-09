@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day08ResonantCollinearity;
+using AdventOfCode.Day09DiskFragmenter;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
