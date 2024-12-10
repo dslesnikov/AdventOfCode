@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day09DiskFragmenter;
+using AdventOfCode.Day10HoofIt;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
