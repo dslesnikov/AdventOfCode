@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day10HoofIt;
+using AdventOfCode.Day11PlutonianPebbles;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
