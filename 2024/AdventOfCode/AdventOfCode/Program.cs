@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day11PlutonianPebbles;
+using AdventOfCode.Day12GardenGroups;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
