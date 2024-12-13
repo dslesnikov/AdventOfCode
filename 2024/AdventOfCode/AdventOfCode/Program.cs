@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day12GardenGroups;
+using AdventOfCode.Day13ClawContraption;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
