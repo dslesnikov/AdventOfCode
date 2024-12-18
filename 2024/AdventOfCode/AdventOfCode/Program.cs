@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day16ReindeerMaze;
+using AdventOfCode.Day18RamRun;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
