@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day19LinenLayout;
+using AdventOfCode.Day20RaceCondition;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
