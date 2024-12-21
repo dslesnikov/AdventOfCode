@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day20RaceCondition;
+using AdventOfCode.Day21KeypadConundrum;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
