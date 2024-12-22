@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day21KeypadConundrum;
+using AdventOfCode.Day22MonkeyMarket;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
