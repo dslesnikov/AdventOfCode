@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day22MonkeyMarket;
+using AdventOfCode.Day23LanParty;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
