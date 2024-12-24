@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day23LanParty;
+using AdventOfCode.Day24CrossedWires;
 
 var solution = Create<Solution>();
 var partOne = solution.SolvePartOne();
