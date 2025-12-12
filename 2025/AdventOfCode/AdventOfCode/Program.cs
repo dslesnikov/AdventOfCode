@@ -1,5 +1,5 @@
 ﻿using AdventOfCode;
-using AdventOfCode.Day6TrashCompactor;
+using AdventOfCode.Day9MovieTheater;
 
 var solution = Create<Solution>();
 
