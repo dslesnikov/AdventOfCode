@@ -104,28 +104,8 @@ public class Solution : ISolution, IFromLines<Solution, Tile>
         return maxArea.ToString();
     }
 
-    private bool IsWithinBounds(Tile tile, IReadOnlyList<Tile> polygon)
+    private static bool IsWithinBounds(Tile tile, IReadOnlyList<Tile> polygon)
     {
-        static bool PointOnSegment(Tile p, Tile a, Tile b)
-        {
-            var minX = Math.Min(a.X, b.X);
-            var maxX = Math.Max(a.X, b.X);
-            var minY = Math.Min(a.Y, b.Y);
-            var maxY = Math.Max(a.Y, b.Y);
-
-            // Quick reject by bounding box (also handles degenerate a==b).
-            if (p.X < minX || p.X > maxX || p.Y < minY || p.Y > maxY)
-                return false;
-
-            // Collinearity via cross product
-            long ax = a.X, ay = a.Y;
-            long bx = b.X, by = b.Y;
-            long px = p.X, py = p.Y;
-
-            var cross = (bx - ax) * (py - ay) - (by - ay) * (px - ax);
-            return cross == 0;
-        }
-
         var x = tile.X;
         var y = tile.Y;
         var n = polygon.Count;
@@ -168,6 +148,26 @@ public class Solution : ISolution, IFromLines<Solution, Tile>
         }
 
         return inside;
+
+        static bool PointOnSegment(Tile p, Tile a, Tile b)
+        {
+            var minX = Math.Min(a.X, b.X);
+            var maxX = Math.Max(a.X, b.X);
+            var minY = Math.Min(a.Y, b.Y);
+            var maxY = Math.Max(a.Y, b.Y);
+
+            // Quick reject by bounding box (also handles degenerate a==b).
+            if (p.X < minX || p.X > maxX || p.Y < minY || p.Y > maxY)
+                return false;
+
+            // Collinearity via cross product
+            long ax = a.X, ay = a.Y;
+            long bx = b.X, by = b.Y;
+            long px = p.X, py = p.Y;
+
+            var cross = (bx - ax) * (py - ay) - (by - ay) * (px - ax);
+            return cross == 0;
+        }
     }
 
 
